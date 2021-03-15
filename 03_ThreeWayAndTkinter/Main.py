@@ -1,5 +1,5 @@
 from tkinter import Tk, Button
-from random import choice, randint
+from random import  randint
 
 
 class Game(Tk):
@@ -39,8 +39,16 @@ class Game(Tk):
             self.empty_column = column
         if flag and self.check():
             newWindow = Tk()
-            newWindow.mainloop()
-            newWindow.Button(text='EXIT', command=self.quit)
+            newWindow.geometry('100x100')
+            newWindow.title('WIN')
+            def my_destroy():
+                newWindow.destroy()
+                self.shake()
+            button_win = Button(newWindow, text='WIN!!!', command=my_destroy)
+            button_win.grid()
+            newWindow.columnconfigure(0, weight=1)
+            newWindow.rowconfigure(0, weight=1)
+
 
     def shake(self):
         for i in range(1000):
@@ -61,4 +69,5 @@ class Game(Tk):
         return cool
 
 game = Game()
+game.title('Game')
 game.mainloop()
