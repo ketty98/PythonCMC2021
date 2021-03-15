@@ -30,9 +30,19 @@ class Game(Tk):
             if i != 4:
                 self.columnconfigure(i, weight = weightcolumn)
             self.rowconfigure(i, weight = weightrow)
+        self.empty_row = 1
+        self.empty_column = 0
 
     def move_button(self, i):
-        print(i)
+        this_button = self.massivButtons[i-1]
+        position = this_button.grid_info()
+        column = position['column']
+        row = position['row']
+        if abs(self.empty_column - column) + abs(self.empty_row - row) == 1:
+            print(column, row)
+            this_button.grid(row = self.empty_row, column = self.empty_column)
+            self.empty_row = row
+            self.empty_column = column
 
 game = Game()
 game.mainloop()
